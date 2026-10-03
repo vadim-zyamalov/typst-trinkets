@@ -1,4 +1,6 @@
 #import "@preview/parize:0.2.1": par-indent
+#import "@preview/breather:0.1.0": breathe
+#import "@preview/equate:0.3.3": equate
 
 #let neat-settings = (
   margin: (
@@ -18,7 +20,8 @@
 
 // Данный код позволяет игнорировать underbrace при определении высоты скобок
 // https://forum.typst.app/t/how-to-recreate-latex-smash-and-vphantom-in-typst-math/8413/3
-// Значению параметра `delim`, в силу особенностей языка typst, должен предшествовать #.
+// Значение параметра `delim` должно быть заключено в #{}, так как, по всей видимости,
+// без этого Typst воспринимает значение как формулу и не понимает, чего мы хотим от него.
 #let autolr(eq, delim: ("(", ")")) = context {
   let ld = symbol(delim.at(0))
   let rd = symbol(delim.at(1))
@@ -78,6 +81,7 @@
   show math.equation.where(block: true): set block(breakable: true)
   show math.equation.where(block: true): set par(leading: 0.75em)
   set math.mat(column-gap: 1em)
+  show raw.where(block: true): set par(leading: 0.75em)
 
   // Задаем шрифты
   set text(lang: "ru", font: inner-settings.fonts.main, size: inner-settings.fonts.size)
@@ -98,7 +102,8 @@
     link(el.location(), counter(eq).display(at: el.location()))
   }
 
-  show: par-indent
+  // https://github.com/EpicEricEE/typst-equate/issues/11#issuecomment-2633709934
+  set math.equation(supplement: none, numbering: (..nums) => numbering("(1)", ..nums))
 
   // Размещаем заголовок документа
   place(
@@ -107,6 +112,10 @@
     scope: "parent",
     clearance: 2em,
   )[#title()]
+
+  show: par-indent
+  show: equate.with(breakable: true, number-mode: "label")
+  show: breathe
 
   doc
 }
