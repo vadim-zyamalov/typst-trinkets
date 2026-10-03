@@ -1,0 +1,8 @@
+#let Ex = math.op("E")
+#let Var = math.op("Var")
+#let SE = math.op("SE")
+#let Cov = math.op("Cov")
+#let Corr = math.op("Corr")
+#let plim = math.op("plim", limits: true)
+#let rank = math.op("rank")
+#let Vect(el) = math.bold(math.upright(el))
