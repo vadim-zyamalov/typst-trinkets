@@ -2,6 +2,8 @@
 
 #let margins = (top: 4.5em, bottom: 1.5em, x: 1em, y: 1em)
 
+// Функция для автоматического выбора размера текста такого,
+// что соответствующий элемент будет вписываться по ширине в страницу/слайд.
 // See https://forum.typst.app/t/how-to-auto-size-text-and-images/1290/3
 #let fill-height-with-text(min: 0.3em, max: 5em, eps: 0.1em, it) = layout(size => {
   let fits(text-size, it) = {
@@ -34,6 +36,7 @@
   it
 })
 
+// Базовая настройка слайдов.
 #let slide(title: auto, ..args) = touying-slide-wrapper(self => {
   if title != auto {
     self.store.title = title
@@ -72,7 +75,8 @@
   touying-slide(self: self, ..args)
 })
 
-// Taken from university theme
+// Титульный слайд.
+// Модифицированная версия титульного слайда из темы university.
 #let title-slide(
   config: (:),
   extra: none,
@@ -176,6 +180,7 @@
   touying-slide(self: self, body)
 })
 
+// Основная функция темы.
 #let neat-theme(
   aspect-ratio: "16-9",
   margins: margins,
