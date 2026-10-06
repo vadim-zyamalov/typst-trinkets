@@ -6,3 +6,11 @@
 #let plim = math.op("plim", limits: true)
 #let rank = math.op("rank")
 #let Vect(el) = math.bold(math.upright(el))
+
+#let vct = (:)
+#for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {
+  vct += (
+    str(char): Vect(char),
+    lower(char): Vect(lower(char)),
+  )
+}
